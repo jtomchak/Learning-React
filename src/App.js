@@ -10,6 +10,24 @@ class App extends Component {
         id: 101
       }
     };
+    //Binding is no longer inheriantly done with extends component
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  //Object spread operator over hero object from state
+  handleChange(event) {
+    this.setState({
+      hero: {
+        ...this.state.hero,
+        name: event.target.value
+      }
+    });
+  }
+
+  handleSubmit(event) {
+    console.log("A name was submitted: " + this.state.hero);
+    event.preventDefault();
   }
 
   render() {
@@ -26,8 +44,15 @@ class App extends Component {
           {this.state.hero.id}
         </div>
         <div>
-          <label>name: </label>
-          {this.state.hero.name}
+          <form onSubmit={this.handleSubmit}>
+            <label>name: </label>
+            <input
+              type="text"
+              value={this.state.hero.name}
+              onChange={this.handleChange}
+            />
+            <input className="button" type="submit" value="Submit" />
+          </form>
         </div>
       </div>
     );
