@@ -54,7 +54,7 @@
     2. Hide or show items based on conditions
     3. Edit fields/properties of item in a collection
     4. Dashboard -> Master list -> detail view. Used all the time
-    5. Added network calls from Github's API for real world experiance
+    5. Added network calls from Github's API for real world experience
 ### Course Resources
   * [Project Repo & Document]()
 
