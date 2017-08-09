@@ -15,11 +15,12 @@
 - [Types of components](#types-of-components)
 - [Passing dynamic data into a component](#passing-dynamic-data-into-a-component)
 - [Prototype what what now ?](#prototype-what-what-now-)
+- [What is State](#what-is-state)
 - [Stateless functional component](#stateless-functional-component)
 - [Routing, getting around](#routing-getting-around)
 - [Working with React Events](#working-with-react-events)
 - [More Routing](#more-routing)
-- [What is State](#what-is-state)
+- [React immutability helpers](#react-immutability-helpers)
 - [Loading state with onClick](#loading-state-with-onclick)
 - [Displaying state with JSX](#displaying-state-with-jsx)
 - [How do we update state?](#how-do-we-update-state)
@@ -38,6 +39,7 @@
   * More Javascript than framework syntax
   
 ### From react to other libraries
+  * Learning React is useful, even when moving to other frameworks
     * Vue.js
     * Angular
     * Cycle.js
@@ -83,6 +85,8 @@
 
 ## Prototype what what now ?
 
+## What is State
+
 ## Stateless functional component 
 
 ## Routing, getting around
@@ -91,7 +95,8 @@
 
 ## More Routing 
 
-## What is State
+## React immutability helpers
+  *[LINK](https://facebook.github.io/react/docs/update.html)
 
 ## Loading state with onClick
 
