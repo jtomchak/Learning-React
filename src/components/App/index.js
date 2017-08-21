@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import HeroForm from "../HeroForm";
+import HeroList from "../HeroList";
 import "./App.css";
 const HEROES = [
   { id: 11, name: "Mr. Nice" },
@@ -71,26 +72,16 @@ class App extends Component {
   }
 
   render() {
-    const heroesList = this.state.heroes.map(function(hero) {
-      return (
-        <li
-          className={hero.id === this.state.selectedHero.id ? "selected" : ""}
-          key={hero.id}
-          onClick={() => this.selectHero(hero)}
-        >
-          <span className="badge">{hero.id}</span> {hero.name}
-        </li>
-      );
-    }, this);
-
     return (
       <div>
         <h1>
           {this.state.title}
         </h1>
-        <ul className="heroes">
-          {heroesList}
-        </ul>
+        <HeroList
+          heroes={this.state.heroes}
+          selectedHero={this.state.selectedHero}
+          onHeroClick={this.selectHero}
+        />
         <HeroForm
           selectedHero={this.state.selectedHero}
           handleChange={() => this.handleChange}
