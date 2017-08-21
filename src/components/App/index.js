@@ -15,6 +15,10 @@ const HEROES = [
   { id: 19, name: "Magma" },
   { id: 20, name: "Tornado" }
 ];
+const DEFAULT_NO_HERO = {
+  name: "",
+  id: undefined
+};
 
 class App extends Component {
   constructor() {
@@ -22,10 +26,7 @@ class App extends Component {
     this.state = {
       title: "Tour of Git Heros",
       heroes: HEROES,
-      selectedHero: {
-        name: "",
-        id: undefined
-      }
+      selectedHero: DEFAULT_NO_HERO
     };
 
     //Binding is no longer inheriantly done with extends component
@@ -34,9 +35,13 @@ class App extends Component {
     this.selectHero = this.selectHero.bind(this);
   }
 
-  //capture the index of the selected hero for handleChange
+  /*
+  capture the index of the selected hero for handleChange
+  also if the id of hero param is the current selectedHero, reset it
+  */
   selectHero(hero) {
     const heroIndex = this.state.heroes.map(o => o.id).indexOf(hero.id);
+    hero = this.state.selectedHero.id !== hero.id ? hero : DEFAULT_NO_HERO;
     this.setState({
       selectedHero: {
         ...hero,
@@ -66,7 +71,8 @@ class App extends Component {
           this.state.selectedHero.index + 1,
           this.state.heroes.length
         )
-      ]
+      ],
+      selectedHero: DEFAULT_NO_HERO
     });
     event.preventDefault();
   }
@@ -82,11 +88,12 @@ class App extends Component {
           selectedHero={this.state.selectedHero}
           onHeroClick={this.selectHero}
         />
-        <HeroForm
-          selectedHero={this.state.selectedHero}
-          handleChange={() => this.handleChange}
-          handleSubmit={() => this.handleSubmit}
-        />
+        {this.state.selectedHero.name &&
+          <HeroForm
+            selectedHero={this.state.selectedHero}
+            handleChange={() => this.handleChange}
+            handleSubmit={() => this.handleSubmit}
+          />}
       </div>
     );
   }

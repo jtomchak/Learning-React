@@ -1,10 +1,6 @@
 import React from "react";
 
 const HeroList = props => {
-  const handleSelectedHero = hero => {
-    console.log(hero);
-    props.onHeroClick(hero);
-  };
   return (
     <ul className="heroes">
       {props.heroes.map(hero =>
