@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+import HeroForm from "../HeroForm";
 import "./App.css";
 const HEROES = [
   { id: 11, name: "Mr. Nice" },
@@ -40,7 +42,6 @@ class App extends Component {
         index: heroIndex
       }
     });
-    console.log(hero, heroIndex);
   }
 
   //Object spread operator over hero object from state
@@ -81,6 +82,7 @@ class App extends Component {
         </li>
       );
     }, this);
+
     return (
       <div>
         <h1>
@@ -89,21 +91,11 @@ class App extends Component {
         <ul className="heroes">
           {heroesList}
         </ul>
-        <div>
-          <div>
-            <label>id: </label>
-            {this.state.selectedHero.id}
-          </div>
-          <form onSubmit={this.handleSubmit}>
-            <label>name: </label>
-            <input
-              type="text"
-              value={this.state.selectedHero.name}
-              onChange={this.handleChange}
-            />
-            <input className="button" type="submit" value="Submit" />
-          </form>
-        </div>
+        <HeroForm
+          selectedHero={this.state.selectedHero}
+          handleChange={() => this.handleChange}
+          handleSubmit={() => this.handleSubmit}
+        />
       </div>
     );
   }
