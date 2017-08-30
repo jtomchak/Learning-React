@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Hero.css";
 
 import HeroForm from "./HeroForm";
 import HeroList from "./HeroList";
@@ -13,7 +14,6 @@ class Heroes extends Component {
   constructor() {
     super();
     this.state = {
-      title: "Tour of Git Heros",
       heroes: [],
       selectedHero: DEFAULT_NO_HERO
     };
@@ -79,7 +79,6 @@ class Heroes extends Component {
   render() {
     return (
       <div>
-        <h1>{this.state.title}</h1>
         <HeroList
           heroes={this.state.heroes}
           selectedHero={this.state.selectedHero}
