@@ -2,19 +2,9 @@ import React, { Component } from "react";
 
 import HeroForm from "../HeroForm";
 import HeroList from "../HeroList";
+import { getHeroes, getHeroesSlowly } from "../../services/hero.service";
 import "./App.css";
-const HEROES = [
-  { id: 11, name: "Mr. Nice" },
-  { id: 12, name: "Narco" },
-  { id: 13, name: "Bombasto" },
-  { id: 14, name: "Celeritas" },
-  { id: 15, name: "Magneta" },
-  { id: 16, name: "RubberMan" },
-  { id: 17, name: "Dynama" },
-  { id: 18, name: "Dr IQ" },
-  { id: 19, name: "Magma" },
-  { id: 20, name: "Tornado" }
-];
+
 const DEFAULT_NO_HERO = {
   name: "",
   id: undefined
@@ -25,7 +15,7 @@ class App extends Component {
     super();
     this.state = {
       title: "Tour of Git Heros",
-      heroes: HEROES,
+      heroes: [],
       selectedHero: DEFAULT_NO_HERO
     };
 
@@ -35,6 +25,16 @@ class App extends Component {
     this.selectHero = this.selectHero.bind(this);
   }
 
+  /*
+  We need to now 'call' for our heros when this compoent is going to be mounted
+  */
+  componentWillMount() {
+    getHeroesSlowly.then(payload => {
+      this.setState({
+        heroes: payload
+      });
+    });
+  }
   /*
   capture the index of the selected hero for handleChange
   also if the id of hero param is the current selectedHero, reset it
@@ -80,20 +80,19 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>
-          {this.state.title}
-        </h1>
+        <h1>{this.state.title}</h1>
         <HeroList
           heroes={this.state.heroes}
           selectedHero={this.state.selectedHero}
           onHeroClick={this.selectHero}
         />
-        {this.state.selectedHero.name &&
+        {this.state.selectedHero.name && (
           <HeroForm
             selectedHero={this.state.selectedHero}
             handleChange={() => this.handleChange}
             handleSubmit={() => this.handleSubmit}
-          />}
+          />
+        )}
       </div>
     );
   }
