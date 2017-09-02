@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import Heroes from "../Heroes";
 import Dashboard from "../Dashboard";
+import HeroForm from "../Heroes/HeroForm";
 
 import "./App.css";
 
 class App extends Component {
+  state = {};
+
   render() {
     return (
       <Router>
@@ -21,7 +24,8 @@ class App extends Component {
           </nav>
           <hr />
           <Route exact path="/" component={Dashboard} />
-          <Route path="/heroes" component={Heroes} />
+          <Route exact path="/heroes" component={Heroes} />
+          <Route path={"/heroes/details/:heroid"} component={HeroForm} />
         </div>
       </Router>
     );

@@ -20,4 +20,9 @@ const getHeroesSlowly = new Promise((resolve, reject) => {
   setTimeout(() => resolve(HEROES), 2000);
 });
 
-export { getHeroes, getHeroesSlowly };
+const getHeroById = heroId =>
+  new Promise((resolve, reject) => {
+    resolve(HEROES.find(hero => hero.id === heroId));
+  });
+
+export { getHeroes, getHeroesSlowly, getHeroById };
