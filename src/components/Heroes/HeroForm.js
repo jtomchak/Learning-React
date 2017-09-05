@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { bindActionsCreators } from "redux";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { getHeroById } from "../../services/hero.service";
+import { saveHero } from "../../actions/index";
 
 class HeroForm extends Component {
   constructor(props) {
@@ -22,9 +22,11 @@ class HeroForm extends Component {
     });
   };
 
-  onSubmit(event) {
+  onSubmit = event => {
     event.preventDefault();
-  }
+    this.props.onSave(this.state.hero.id, this.state.hero.name);
+    this.props.history.goBack();
+  };
 
   render() {
     const hero = this.state.hero;
@@ -38,7 +40,7 @@ class HeroForm extends Component {
           <label>id: </label>
           {hero.id}
         </div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.onSubmit}>
           <label>name: </label>
           <input type="text" value={hero.name} onChange={this.handleChange} />
           <input className="button" type="submit" value="Submit" />
@@ -59,4 +61,8 @@ const mapStatetoProps = (state, props) => {
   };
 };
 
-export default connect(mapStatetoProps)(HeroForm);
+const mapDispatchToProps = dispatch => ({
+  onSave: bindActionCreators(saveHero, dispatch)
+});
+
+export default connect(mapStatetoProps, mapDispatchToProps)(HeroForm);

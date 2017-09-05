@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import "./Hero.css";
 import HeroList from "./HeroList";
+import { getHeroesSlowly } from "../../services/hero.service";
 
 const DEFAULT_NO_HERO = {
   name: "",
@@ -18,20 +19,9 @@ class Heroes extends Component {
     };
 
     //Binding is no longer inheriantly done with extends component
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.selectHero = this.selectHero.bind(this);
   }
 
-  /*
-  We need to now 'call' for our heros when this compoent is going to be mounted
-  */
-  // componentWillMount() {
-  //   getHeroesSlowly.then(payload => {
-  //     this.setState({
-  //       heroes: payload
-  //     });
-  //   });
-  // }
   /*
   capture the index of the selected hero for handleChange
   also if the id of hero param is the current selectedHero, reset it
@@ -45,23 +35,6 @@ class Heroes extends Component {
         index: heroIndex
       }
     });
-  }
-
-  handleSubmit(event) {
-    //Sweet mother of mary!! what is going on here ?!?!
-    //So much to keep it from mutating
-    this.setState({
-      heroes: [
-        ...this.state.heroes.slice(0, this.state.selectedHero.index),
-        { id: this.state.selectedHero.id, name: this.state.selectedHero.name },
-        ...this.state.heroes.slice(
-          this.state.selectedHero.index + 1,
-          this.state.heroes.length
-        )
-      ],
-      selectedHero: DEFAULT_NO_HERO
-    });
-    event.preventDefault();
   }
 
   render() {

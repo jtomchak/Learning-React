@@ -1,3 +1,5 @@
+import * as types from "../constants/ActionTypes";
+
 const initialState = [
   {
     id: 76360,
@@ -17,6 +19,14 @@ const initialState = [
 
 export default function heroes(state = initialState, action) {
   switch (action.type) {
+    case types.SAVE_HERO:
+      console.log(action);
+      const heroIndex = state.map(x => x.id).indexOf(action.id);
+      return [
+        ...state.slice(0, heroIndex),
+        { ...state[heroIndex], name: action.name },
+        ...state.slice(heroIndex + 1, state.length)
+      ];
     default:
       return state;
   }
