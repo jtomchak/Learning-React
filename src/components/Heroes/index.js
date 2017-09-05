@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import "./Hero.css";
+import { Link } from "react-router-dom";
+import { bindActionsCreators } from "redux";
+import { connect } from "react-redux";
 
+import "./Hero.css";
 import HeroForm from "./HeroForm";
 import HeroList from "./HeroList";
 import { getHeroes, getHeroesSlowly } from "../../services/hero.service";
-import { Route, Link } from "react-router-dom";
 
 const DEFAULT_NO_HERO = {
   name: "",
@@ -15,7 +17,6 @@ class Heroes extends Component {
   constructor() {
     super();
     this.state = {
-      heroes: [],
       selectedHero: DEFAULT_NO_HERO
     };
 
@@ -28,19 +29,19 @@ class Heroes extends Component {
   /*
   We need to now 'call' for our heros when this compoent is going to be mounted
   */
-  componentWillMount() {
-    getHeroesSlowly.then(payload => {
-      this.setState({
-        heroes: payload
-      });
-    });
-  }
+  // componentWillMount() {
+  //   getHeroesSlowly.then(payload => {
+  //     this.setState({
+  //       heroes: payload
+  //     });
+  //   });
+  // }
   /*
   capture the index of the selected hero for handleChange
   also if the id of hero param is the current selectedHero, reset it
   */
   selectHero(hero) {
-    const heroIndex = this.state.heroes.map(o => o.id).indexOf(hero.id);
+    const heroIndex = this.props.heroes.map(o => o.id).indexOf(hero.id);
     hero = this.state.selectedHero.id !== hero.id ? hero : DEFAULT_NO_HERO;
     this.setState({
       selectedHero: {
@@ -81,7 +82,7 @@ class Heroes extends Component {
     return (
       <div>
         <HeroList
-          heroes={this.state.heroes}
+          heroes={this.props.heroes}
           selectedHero={this.state.selectedHero}
           onHeroClick={this.selectHero}
         />
@@ -98,4 +99,8 @@ class Heroes extends Component {
   }
 }
 
-export default Heroes;
+const mapStatetoProps = state => ({
+  heroes: state.heroes
+});
+
+export default connect(mapStatetoProps)(Heroes);
