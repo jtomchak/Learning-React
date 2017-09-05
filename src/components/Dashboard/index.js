@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { bindActionsCreators } from "redux";
 import { connect } from "react-redux";
 
 import "./Dashboard.css";
-import HeroDetails from "../Heroes/HeroForm";
-import { getHeroes, getHeroesSlowly } from "../../services/hero.service";
 
 class Dashboard extends Component {
   render() {

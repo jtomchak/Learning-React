@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { bindActionsCreators } from "redux";
 import { connect } from "react-redux";
 
 import "./Hero.css";
-import HeroForm from "./HeroForm";
 import HeroList from "./HeroList";
-import { getHeroes, getHeroesSlowly } from "../../services/hero.service";
 
 const DEFAULT_NO_HERO = {
   name: "",
@@ -21,7 +18,6 @@ class Heroes extends Component {
     };
 
     //Binding is no longer inheriantly done with extends component
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.selectHero = this.selectHero.bind(this);
   }
@@ -47,16 +43,6 @@ class Heroes extends Component {
       selectedHero: {
         ...hero,
         index: heroIndex
-      }
-    });
-  }
-
-  //Object spread operator over hero object from state
-  handleChange(event) {
-    this.setState({
-      selectedHero: {
-        ...this.state.selectedHero,
-        name: event.target.value
       }
     });
   }

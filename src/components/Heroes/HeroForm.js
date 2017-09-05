@@ -1,23 +1,26 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { bindActionsCreators } from "redux";
+import { connect } from "react-redux";
 import { getHeroById } from "../../services/hero.service";
 
 class HeroForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      heroId: parseInt(props.match.params.heroid)
+      hero: this.props.hero
     };
   }
 
-  componentWillMount() {
-    getHeroById(this.state.heroId).then(payload => {
-      console.log(payload);
-      this.setState({
-        hero: payload
-      });
+  //Object spread operator over hero object from state
+  handleChange = event => {
+    this.setState({
+      hero: {
+        ...this.state.hero,
+        name: event.target.value
+      }
     });
-  }
+  };
 
   onSubmit(event) {
     event.preventDefault();
@@ -37,11 +40,7 @@ class HeroForm extends Component {
         </div>
         <form onSubmit={this.handleSubmit}>
           <label>name: </label>
-          <input
-            type="text"
-            value={hero.name}
-            onChange={this.props.handleChange}
-          />
+          <input type="text" value={hero.name} onChange={this.handleChange} />
           <input className="button" type="submit" value="Submit" />
         </form>
       </div>
@@ -51,4 +50,13 @@ class HeroForm extends Component {
 
 HeroForm.propTypes = {};
 
-export default HeroForm;
+//Get the hero id out of the props match url
+//then find on the array of heros in state, and return the matched hero
+const mapStatetoProps = (state, props) => {
+  const heroId = parseInt(props.match.params.heroid);
+  return {
+    hero: state.heroes.find(hero => hero.id === heroId)
+  };
+};
+
+export default connect(mapStatetoProps)(HeroForm);
