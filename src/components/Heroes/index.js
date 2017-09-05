@@ -4,7 +4,7 @@ import "./Hero.css";
 import HeroForm from "./HeroForm";
 import HeroList from "./HeroList";
 import { getHeroes, getHeroesSlowly } from "../../services/hero.service";
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 const DEFAULT_NO_HERO = {
   name: "",
@@ -85,6 +85,14 @@ class Heroes extends Component {
           selectedHero={this.state.selectedHero}
           onHeroClick={this.selectHero}
         />
+        {this.state.selectedHero.name && (
+          <div>
+            <h2>{this.state.selectedHero.name}</h2>
+            <Link to={`/heroes/details/${this.state.selectedHero.id}`}>
+              <button>Details</button>
+            </Link>
+          </div>
+        )}
       </div>
     );
   }
