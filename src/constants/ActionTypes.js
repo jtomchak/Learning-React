@@ -1,0 +1,5 @@
+const DELETE_HERO = "DELETE_HERO";
+const ADD_HERO = "ADD_HERO";
+const EDIT_HERO = "EDIT_HERO";
+
+export { DELETE_HERO, ADD_HERO, EDIT_HERO };
